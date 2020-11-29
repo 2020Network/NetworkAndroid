@@ -8,4 +8,5 @@ data class Studypost(
     val gender : String,
     val age : String,
     val field : String
+
 )
