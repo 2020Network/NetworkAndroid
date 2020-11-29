@@ -7,6 +7,6 @@ data class Studypost(
     val location : String,
     val gender : String,
     val age : String,
-    val field : String
-
+    val field : String,
+    val like : Int
 )
