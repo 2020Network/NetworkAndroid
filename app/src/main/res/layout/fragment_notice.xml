@@ -5,11 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".NoticeFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Notice Fragment 입니당"
-        android:textColor="#000000"
-        android:textSize="30dp"/>
-
+        android:layout_height="match_parent" />
 </FrameLayout>
