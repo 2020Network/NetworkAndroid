@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="field_array">
-        <item>일반과목</item>
-        <item>자격증</item>
+        <item>초등과정</item>
+        <item>중학과정</item>
+        <item>고등과정</item>
+        <item>대학과정</item>
         <item>기타</item>
     </string-array>
 </resources>
