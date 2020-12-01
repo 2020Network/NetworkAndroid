@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(animation: Animation) {
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.anim_splash_out_top, R.anim.anim_splash_in_down)
                 finish()
