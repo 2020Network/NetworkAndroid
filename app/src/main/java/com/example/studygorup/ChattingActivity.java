@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ChattingActivity extends AppCompatActivity implements View.OnClickListener{
+public class ChattingActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView goNoFiBtn, addBtn, sendBtn;
 
@@ -28,7 +28,7 @@ public class ChattingActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.goNoFiBtn:
                 Intent intent = new Intent(getApplicationContext(), NoticeFileActivity.class);
                 startActivity(intent);
