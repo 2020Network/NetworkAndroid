@@ -20,6 +20,12 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -43,10 +49,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class PostContentActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+public class PostContentActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener {
 
     GoogleMap mMap;
     Marker cMarker = null;
+    Marker sMarker = null;
 
     private static final String TAG = "Googlemap_ezample";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -69,6 +76,20 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
 
     private View mLayout;   // Snackbar 사용
 
+    private Geocoder geocoder;
+
+    boolean flagC = true;
+
+    //region 변수 선언
+    EditText editTitle, editInfo, editNum, editMinY, editMaxY;
+    TextView postBtn, cancelBtn;
+    RadioGroup radioGroup;
+    Spinner spField;
+
+    String sAddress, strTitle, strInfo, strGender, strField;
+    int minY, maxY, num;
+    //endregion
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +98,21 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_post_content);
+
+        //region 변수 연결
+        editTitle = findViewById(R.id.editTitle);
+        editInfo = findViewById(R.id.editInfo);
+        editNum = findViewById(R.id.editNum);
+        editMinY = findViewById(R.id.editMinY);
+        editMaxY = findViewById(R.id.editMaxY);
+        postBtn = findViewById(R.id.postBtn);
+        cancelBtn = findViewById(R.id.cancelBtn);
+        radioGroup = findViewById(R.id.radioGroup);
+        spField = findViewById(R.id.spinnerField);
+        //endregion
+
+        postBtn.setOnClickListener(this);
+        cancelBtn.setOnClickListener(this);
 
         mLayout = findViewById(R.id.layout_main);
 
@@ -95,10 +131,56 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.postBtn:
+                strTitle = editTitle.getText().toString();
+                strInfo = editInfo.getText().toString();
+                RadioButton rb = findViewById(radioGroup.getCheckedRadioButtonId());
+                strGender = rb.getText().toString();
+                num = Integer.parseInt((editNum.getText().toString()).equals("") ? "0": editNum.getText().toString());
+                strField = spField.getSelectedItem().toString();
+                minY = Integer.parseInt((editMinY.getText().toString()).equals("") ? "0": editMinY.getText().toString());
+                maxY = Integer.parseInt((editMaxY.getText().toString()).equals("") ? "3000": editMaxY.getText().toString());
+
+                if(strTitle.equals("") || strInfo.equals("") || strGender.equals("") || strField.equals("") ||
+                    num<=0 || minY<=1900 || maxY>=3000){   // 비어있으면
+                    Toast.makeText(this, "입력되지 않은 칸이 있습니다.", Toast.LENGTH_SHORT).show();
+                }
+                // 서버에 값 보내기
+                Log.d("TAG_AN", strTitle+" "+strInfo+" "+ strGender+" "+num+" "+strField+" "+minY+" "+maxY);
+                break;
+            case R.id.cancelBtn:
+                finish();
+                break;
+        }
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "onMapReady: ");
 
         mMap = googleMap;
+
+        geocoder = new Geocoder(this);
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                String title = getCurrentAddress(latLng);
+                String sub = "무라무러";
+                sAddress = title;
+
+                /*MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.title(title)
+                        .snippet(sub)
+                        .position(latLng);
+                googleMap.addMarker(markerOptions);*/
+
+                setCurrentLocation(latLng, title, sub);
+
+            }
+        });
 
         setDefaultLocation();
 
@@ -142,12 +224,6 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
         }
 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Log.d(TAG, "onMapClick: ");
-            }
-        });
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
@@ -292,6 +368,30 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
 
 
         cMarker = mMap.addMarker(markerOptions);
+
+        if(flagC) {
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+            mMap.moveCamera(cameraUpdate);
+            flagC = false;
+        }
+
+    }
+    public void setCurrentLocation(LatLng latLng, String markerTitle, String markerSnippet) {
+
+
+        if (sMarker != null) sMarker.remove();
+
+
+        LatLng currentLatLng = latLng;
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(currentLatLng);
+        markerOptions.title(markerTitle);
+        markerOptions.snippet(markerSnippet);
+        markerOptions.draggable(true);
+
+
+        sMarker = mMap.addMarker(markerOptions);
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
         mMap.moveCamera(cameraUpdate);
@@ -447,5 +547,4 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                 break;
         }
     }
-
 }
