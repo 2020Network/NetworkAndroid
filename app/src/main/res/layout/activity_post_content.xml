@@ -13,7 +13,7 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
-        android:layout_height="170dp"
+        android:layout_height="180dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="29dp"
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="42dp"
+        android:layout_marginEnd="33dp"
         android:digits="0123456789"
         android:fontFamily="@font/appleneom"
         android:hint="인원수를 입력해주세요."
@@ -116,9 +116,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
-        android:layout_marginTop="11dp"
-        android:text="위치"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/appleneob"
+        android:text="위치"
         android:textColor="@color/colorMain"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,6 +162,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14">
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end"
@@ -198,6 +199,7 @@
                 android:fontFamily="@font/appleneol"
                 android:gravity="center"
                 android:text="성별무관"
+                android:checked="true"
                 android:textSize="12dp" />
         </RadioGroup>
 
@@ -264,6 +266,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="46dp"
+        android:entries="@array/field_array"
         android:background="@drawable/edit_text_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView20"
@@ -298,5 +301,7 @@
         android:textSize="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerField" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
