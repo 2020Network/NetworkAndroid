@@ -13,6 +13,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         val bottomNavigationView = findViewById<View>(R.id.bottomNavigationView) as BottomNavigationView;
         bottomNavigationView.setOnNavigationItemSelectedListener(this)
+
+        val fragmentGroup = GroupFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragmentGroup).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragmentGroup).commit()
             }
             R.id.nv_myPage -> {
-                var fragmentMypage = NoticeFragment()
+                var fragmentMypage = MypageFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragmentMypage).commit()
             }
         }
