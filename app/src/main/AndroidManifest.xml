@@ -14,24 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NoticeFileActivity">
-        </activity>
-        <activity android:name=".ChattingActivity">
-
-        </activity>
-        <activity android:name=".SignupActivity">
-
-        </activity>
+        <activity android:name=".GroupContentsActivity"></activity>
+        <activity android:name=".ProfileEditActivity" />
+        <activity android:name=".NoticeFileActivity" />
+        <activity android:name=".ChattingActivity" />
+        <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".PostContentActivity">
-        </activity>
+        <activity android:name=".PostContentActivity" />
         <activity android:name=".SplashActivity" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCmk2xLIb2dImIrsEZQrzJ983s19HKa56M" />
