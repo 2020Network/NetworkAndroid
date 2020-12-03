@@ -14,7 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GroupContentsActivity"></activity>
+        <activity android:name=".GroupContentsActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
+        </activity>
         <activity android:name=".ProfileEditActivity" />
         <activity android:name=".NoticeFileActivity" />
         <activity android:name=".ChattingActivity" />
@@ -23,11 +31,6 @@
         <activity android:name=".PostContentActivity" />
         <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
