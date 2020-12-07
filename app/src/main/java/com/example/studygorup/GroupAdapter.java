@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.Holder> {
+public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.Holder>{
 
     private Context context;
     private List<GroupItemData> list = new ArrayList<>();
@@ -67,6 +67,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.Holder> {
     }
 
 
+
     public class Holder extends RecyclerView.ViewHolder{
         public TextView textTitle, textContents, textTag;
 
@@ -75,6 +76,13 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.Holder> {
             textTitle = view.findViewById(R.id.textTitle);
             textContents = view.findViewById(R.id.textContents);
             textTag = view.findViewById(R.id.textTag);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("TAG_AN", textTitle.getText()+" "+textContents.getText()+" "+textTag.getText());
+                }
+            });
         }
     }
 }

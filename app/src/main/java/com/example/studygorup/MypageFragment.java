@@ -1,5 +1,6 @@
 package com.example.studygorup;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -69,7 +70,8 @@ public class MypageFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnEditProfile:
-                Toast.makeText(getContext(), "프로필을 변경해보자", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
+                startActivity(intent);
                 break;
         }
     }
