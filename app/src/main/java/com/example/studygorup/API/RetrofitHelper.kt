@@ -5,8 +5,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitHelper{
 
+
+
     private var retrofit = Retrofit.Builder()
-        .baseUrl("http://00bbfc406338.ngrok.io")
+        .baseUrl("https://43d58dbefe2a.ngrok.io")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

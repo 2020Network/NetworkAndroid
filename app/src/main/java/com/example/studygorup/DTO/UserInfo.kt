@@ -1,11 +1,13 @@
 package com.example.studygorup.DTO
 
+import com.google.gson.annotations.SerializedName
+
 data class UserInfo (
-    val userInfoID : Int,
-    val userInfoName :String,
-    val userInfoEmail :String,
-    val userInfoPwd :String,
-    val userInfoAge :String,
-    val userInfoGender :String,
-    val userInfoStudyfield :String
+    val UserID : Int,
+    val UserName :String,
+    val UserEmail :String,
+    val UserPwd :String,
+    val Age :String,
+    val Gender :String,
+    val StudyField :String
 )

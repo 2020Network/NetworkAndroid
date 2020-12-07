@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.example.studygorup.API.RetrofitHelper
 import com.example.studygorup.DTO.Login
@@ -25,14 +26,9 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Responselogin>, response: Response<Responselogin>) {
                     when(response.code()){
                         200 -> {
-                            val intent = Intent(this@LoginActivity,MainActivity::class.java)
-                            val gson = GsonBuilder().create()
-                            val strData = gson.toJson(response.body()!!.userInfo, Responselogin::class.java)
-
-                            val sp = getSharedPreferences("data", MODE_PRIVATE)
-                            val editor = sp.edit()
-                            editor.putString("data", strData)
-                            editor.apply()
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            Log.d("TEST", response.body()!!.user.toString())
+                            intent.putExtra("userID", response.body()!!.user)
                             startActivity(intent)
                             finish()
                         }
@@ -43,10 +39,17 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Responselogin>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.e("error",t.toString())
+                    Toast.makeText(this@LoginActivity,"서버 에러", Toast.LENGTH_SHORT).show()
                 }
 
             })
         }
+
+        textSignup.setOnClickListener {
+            val intent = Intent(this@LoginActivity,SignupActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

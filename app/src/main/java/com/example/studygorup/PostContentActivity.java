@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,6 +29,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.studygorup.API.GroupAPI;
+import com.example.studygorup.API.RetrofitHelper;
+import com.example.studygorup.DTO.Group;
+import com.example.studygorup.DTO.Responsesign;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -48,6 +53,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostContentActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener {
 
@@ -131,8 +140,11 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -147,10 +159,45 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                 maxY = Integer.parseInt((editMaxY.getText().toString()).equals("") ? "3000": editMaxY.getText().toString());
 
                 if(sAddress.equals("") || strTitle.equals("") || strInfo.equals("") || strGender.equals("") || strField.equals("") ||
-                    num<=0 || minY<=1900 || maxY>=3000){   // 비어있으면
+                        num<=0 || minY<=1900 || maxY>=3000){   // 비어있으면
                     Toast.makeText(this, "입력되지 않은 칸이 있습니다.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 // 서버에 값 보내기
+
+                GroupAPI groupAPI = new RetrofitHelper().getGroupAPI();
+/*
+        val title : String,
+                val content : String,
+                val people : Int,
+                val location : String,
+                val gender : String,
+                val age : String,
+                val studyfield : String,
+                val userID : Int
+               */
+
+                groupAPI.create(
+                        new Group(editTitle.getText().toString(),
+                                editInfo.getText().toString(),
+                                Integer.parseInt(editNum.getText().toString()),
+                                sAddress,
+                                strGender,
+                                String.valueOf(minY),
+                                String.valueOf(maxY),
+                                strField,
+                                getIntent().getIntExtra("userID",0))).enqueue(new Callback<Responsesign>() {
+                    @Override
+                    public void onResponse(Call<Responsesign> call, Response<Responsesign> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Responsesign> call, Throwable t) {
+
+                    }
+                });
+                Log.d("TAG_AN", strTitle+" "+strInfo+" "+ strGender+" "+num+" "+strField+" "+minY+" "+maxY);
                 Log.d("TAG_AN", sAddress+" "+strTitle+" "+strInfo+" "+ strGender+" "+num+" "+strField+" "+minY+" "+maxY);
                 break;
             case R.id.cancelBtn:

@@ -9,12 +9,16 @@ import android.widget.*
 import com.example.studygorup.API.RetrofitHelper
 import com.example.studygorup.DTO.Responsesign
 import com.example.studygorup.DTO.Signup
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.activity_signup.button
+import kotlinx.android.synthetic.main.activity_signup.editId
+import kotlinx.android.synthetic.main.activity_signup.editPW
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignupActivity : AppCompatActivity() {
+class  SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
@@ -39,10 +43,16 @@ class SignupActivity : AppCompatActivity() {
             }
         }
 
+
     }
     fun Sign(){
         button.setOnClickListener {
-            RetrofitHelper().getUserAPI().signUp(Signup(editId.text.toString(), editPW.text.toString(), editPW2.text.toString(), editPW4.text.toString(), "" ,spinner.selectedItem.toString())).enqueue(
+            var gender = if (radioGroup.checkedRadioButtonId == R.id.radioButton){
+                "남자"
+            }else{
+                "여자"
+            }
+            RetrofitHelper().getUserAPI().signUp(Signup(editId.text.toString(), editPW.text.toString(), editPW2.text.toString(), editPW4.text.toString(),gender ,spinner.selectedItem.toString())).enqueue(
                 object : Callback<Responsesign> {
                     override fun onResponse(call: Call<Responsesign>, response: Response<Responsesign>) {
                         when(response.code()){
@@ -57,13 +67,14 @@ class SignupActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Responsesign>, t: Throwable) {
-
+                        Log.d("error",t.toString())
                         Toast.makeText(this@SignupActivity,"서버 에러", Toast.LENGTH_SHORT).show()
                     }
 
                 }
             )
         }
+
     }
 
 }

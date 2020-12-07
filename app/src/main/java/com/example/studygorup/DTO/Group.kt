@@ -6,7 +6,8 @@ data class Group(
     val people : Int,
     val location : String,
     val gender : String,
-    val age : String,
+    val age1 : String,
+    val age2 : String,
     val studyfield : String,
     val userID : Int
 )

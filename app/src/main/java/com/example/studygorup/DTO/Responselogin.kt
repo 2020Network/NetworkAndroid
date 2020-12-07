@@ -1,7 +1,7 @@
 package com.example.studygorup.DTO
 
-data class Responselogin (
+data class  Responselogin (
     val code : Int,
     val message : String,
-    val userInfo : UserInfo
+    val user : Int
 )

@@ -15,13 +15,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.studygorup.API.GroupAPI;
+import com.example.studygorup.API.RetrofitHelper;
+import com.example.studygorup.DTO.Responsegroup;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GroupFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView recyclerView;
     private GroupAdapter adapter;
     private ArrayList<GroupItemData> list = new ArrayList<>();
+    GroupAPI service = new RetrofitHelper().getGroupAPI();
 
     TextView textTitle, textContent, textTag;
     ImageView makeGroupBtn;
@@ -42,11 +52,24 @@ public class GroupFragment extends Fragment implements View.OnClickListener{
 
         recyclerView = view.findViewById(R.id.recycler);
 
-        list = GroupItemData.createGroupList(10);
-        recyclerView.setHasFixedSize(true);
-        adapter = new GroupAdapter(getContext(),list,1);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        service.allgroup().enqueue(new Callback<List<Responsegroup>>() {
+            @Override
+            public void onResponse(Call<List<Responsegroup>> call, Response<List<Responsegroup>> response) {
+                if (response.isSuccessful()){
+                    list = GroupItemData.createGroupList(10);
+                    recyclerView.setHasFixedSize(true);
+                    adapter = new GroupAdapter(getContext(),list,1);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recyclerView.setAdapter(adapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Responsegroup>> call, Throwable t) {
+
+            }
+        });
 
         Log.d("TAG", "Group Fragment");
         

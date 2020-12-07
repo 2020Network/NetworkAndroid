@@ -3,7 +3,9 @@ package com.example.studygorup.API
 import com.example.studygorup.DTO.*
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface UserAPI {
     @POST("/user/join")
@@ -16,5 +18,8 @@ interface UserAPI {
         @Body login: Login
     ) : Call<Responselogin>
 
-
+    @GET("user/myuser")
+    fun getUser(
+        @Query("userID") userID : Int? = null
+    ) : Call<ResponsemyUser>
 }
