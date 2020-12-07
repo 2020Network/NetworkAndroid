@@ -55,6 +55,8 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
     Marker cMarker = null;
     Marker sMarker = null;
 
+    String sLocation = null;
+
     private static final String TAG = "Googlemap_ezample";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
@@ -109,6 +111,7 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
         cancelBtn = findViewById(R.id.cancelBtn);
         radioGroup = findViewById(R.id.radioGroup);
         spField = findViewById(R.id.spinnerField);
+        sAddress = "";
         //endregion
 
         postBtn.setOnClickListener(this);
@@ -143,12 +146,12 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                 minY = Integer.parseInt((editMinY.getText().toString()).equals("") ? "0": editMinY.getText().toString());
                 maxY = Integer.parseInt((editMaxY.getText().toString()).equals("") ? "3000": editMaxY.getText().toString());
 
-                if(strTitle.equals("") || strInfo.equals("") || strGender.equals("") || strField.equals("") ||
+                if(sAddress.equals("") || strTitle.equals("") || strInfo.equals("") || strGender.equals("") || strField.equals("") ||
                     num<=0 || minY<=1900 || maxY>=3000){   // 비어있으면
                     Toast.makeText(this, "입력되지 않은 칸이 있습니다.", Toast.LENGTH_SHORT).show();
                 }
                 // 서버에 값 보내기
-                Log.d("TAG_AN", strTitle+" "+strInfo+" "+ strGender+" "+num+" "+strField+" "+minY+" "+maxY);
+                Log.d("TAG_AN", sAddress+" "+strTitle+" "+strInfo+" "+ strGender+" "+num+" "+strField+" "+minY+" "+maxY);
                 break;
             case R.id.cancelBtn:
                 finish();
@@ -389,7 +392,6 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
         markerOptions.title(markerTitle);
         markerOptions.snippet(markerSnippet);
         markerOptions.draggable(true);
-
 
         sMarker = mMap.addMarker(markerOptions);
 
