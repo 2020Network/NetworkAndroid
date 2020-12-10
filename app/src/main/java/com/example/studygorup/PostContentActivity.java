@@ -21,6 +21,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 import com.example.studygorup.API.GroupAPI;
 import com.example.studygorup.API.RetrofitHelper;
 import com.example.studygorup.DTO.Group;
+import com.example.studygorup.DTO.GroupRequest;
 import com.example.studygorup.DTO.Responsesign;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -51,6 +53,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -96,7 +99,7 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
     TextView postBtn, cancelBtn;
     RadioGroup radioGroup;
     Spinner spField;
-
+    String[] item = {"초등과정","중등과정","고등과정","대학과정","기타"};
     String sAddress, strTitle, strInfo, strGender, strField;
     int minY, maxY, num;
     //endregion
@@ -126,6 +129,7 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
         postBtn.setOnClickListener(this);
         cancelBtn.setOnClickListener(this);
 
+
         mLayout = findViewById(R.id.layout_main);
 
         locationRequest = new LocationRequest()
@@ -141,7 +145,20 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,item);
+        spField.setAdapter(adapter);
+        spField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                strField = item[i];
+                Log.e("study",strField);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -154,10 +171,9 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                 RadioButton rb = findViewById(radioGroup.getCheckedRadioButtonId());
                 strGender = rb.getText().toString();
                 num = Integer.parseInt((editNum.getText().toString()).equals("") ? "0": editNum.getText().toString());
-                strField = spField.getSelectedItem().toString();
                 minY = Integer.parseInt((editMinY.getText().toString()).equals("") ? "0": editMinY.getText().toString());
                 maxY = Integer.parseInt((editMaxY.getText().toString()).equals("") ? "3000": editMaxY.getText().toString());
-
+                int year = Calendar.getInstance().get(Calendar.YEAR);
                 if(sAddress.equals("") || strTitle.equals("") || strInfo.equals("") || strGender.equals("") || strField.equals("") ||
                         num<=0 || minY<=1900 || maxY>=3000){   // 비어있으면
                     Toast.makeText(this, "입력되지 않은 칸이 있습니다.", Toast.LENGTH_SHORT).show();
@@ -166,6 +182,7 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                 // 서버에 값 보내기
 
                 GroupAPI groupAPI = new RetrofitHelper().getGroupAPI();
+
 /*
         val title : String,
                 val content : String,
@@ -176,20 +193,24 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                 val studyfield : String,
                 val userID : Int
                */
-
+                int result1 = year - minY + 1;
+                int result2 = year - maxY + 1;
                 groupAPI.create(
-                        new Group(editTitle.getText().toString(),
+                        new GroupRequest(editTitle.getText().toString(),
                                 editInfo.getText().toString(),
                                 Integer.parseInt(editNum.getText().toString()),
                                 sAddress,
                                 strGender,
-                                String.valueOf(minY),
-                                String.valueOf(maxY),
+                                String.valueOf(result1),
+                                String.valueOf(result2),
                                 strField,
                                 getIntent().getIntExtra("userID",0))).enqueue(new Callback<Responsesign>() {
                     @Override
                     public void onResponse(Call<Responsesign> call, Response<Responsesign> response) {
-
+                        if (response.isSuccessful()){
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);//액티비티 띄우기
+                        }
                     }
 
                     @Override

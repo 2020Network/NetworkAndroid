@@ -1,6 +1,7 @@
 package com.example.studygorup.API
 
 import com.example.studygorup.DTO.Group
+import com.example.studygorup.DTO.GroupRequest
 import com.example.studygorup.DTO.Responsegroup
 import com.example.studygorup.DTO.Responsesign
 import retrofit2.Call
@@ -12,7 +13,7 @@ import retrofit2.http.Query
 interface GroupAPI {
     @POST("/group/create")
     fun create(
-        @Body group : Group
+        @Body group : GroupRequest
     ) : Call<Responsesign>
 
     @GET("/group")

@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.example.studygorup.DTO.Group
 import com.example.studygorup.DTO.Responsegroup
 import kotlinx.android.synthetic.main.group_row.view.*
 
-class GroupAdapterKt(context: Context, dataList: ArrayList<Responsegroup>) : BaseAdapter(){
+class GroupAdapterKt(context: Context, dataList: ArrayList<Group>) : BaseAdapter(){
     val mContext = context
     val mDataList = dataList
     override fun getCount(): Int {
@@ -29,9 +30,9 @@ class GroupAdapterKt(context: Context, dataList: ArrayList<Responsegroup>) : Bas
         val inflater = LayoutInflater.from(mContext)
         val converterView = inflater.inflate(R.layout.group_row,p2, false)
 
-        converterView.textTitle.text = mDataList[p0].title
-        converterView.textContents.text = mDataList[p0].content
-        converterView.textTag.text = "#${mDataList[p0].age1}이상 #${mDataList[p0].age2}미만 #${mDataList[p0].gender} #${mDataList[p0].studyfield} #남은인원:${mDataList[p0].people}"
+        converterView.textTitle.text = mDataList[p0].Title
+        converterView.textContents.text = mDataList[p0].Content
+        converterView.textTag.text = "#${mDataList[p0].Age2}이상 #${mDataList[p0].Age1}미만 #${mDataList[p0].Gender} #${mDataList[p0].StudyField} #남은인원:${mDataList[p0].People.toInt()}"
 
 
         return converterView
