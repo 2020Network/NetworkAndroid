@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableLayout
 import com.example.studygorup.API.RetrofitHelper
 import com.example.studygorup.DTO.ResponsemyUser
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_mypage_kt.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,7 +25,12 @@ class MypageFragmentKt : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_mypage_kt, container, false)
         val userID = arguments!!.getInt("userID",0)
-
+        myInfo()
+        tab()
+        return view
+    }
+    fun myInfo(){
+        val userID = arguments!!.getInt("userID",0)
         RetrofitHelper().getUserAPI().getUser(userID).enqueue(object : Callback<ResponsemyUser>{
             override fun onResponse(
                 call: Call<ResponsemyUser>,
@@ -41,7 +48,27 @@ class MypageFragmentKt : Fragment() {
             }
 
         })
-        return view
     }
+    fun tab(){
+        val fragmentAdapter = FragmentAdapter(childFragmentManager)
+        container.adapter = fragmentAdapter
 
+        container.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
+
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                if (tab != null){
+                    container.currentItem = tab.position
+                }
+            }
+
+        })
+    }
 }
