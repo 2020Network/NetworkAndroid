@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        //fragment 이동
         when(item.itemId){
             R.id.nv_group -> {
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragmentGroup).commit()

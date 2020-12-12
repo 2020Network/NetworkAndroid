@@ -8,7 +8,7 @@ class RetrofitHelper{
 
 
     private var retrofit = Retrofit.Builder()
-        .baseUrl("https://eb6883b804ca.ngrok.io")
+        .baseUrl("https://0e0df81f8d39.ngrok.io")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
