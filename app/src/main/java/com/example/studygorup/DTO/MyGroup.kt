@@ -1,6 +1,6 @@
 package com.example.studygorup.DTO
 
-data class Group(
+data class MyGroup(
     val GroupID : Int ?= null,
     val Title : String,
     val Content : String,

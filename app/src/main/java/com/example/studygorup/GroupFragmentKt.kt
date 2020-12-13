@@ -38,12 +38,29 @@ class GroupFragmentKt : Fragment() {
     }
     fun setList(){
         RetrofitHelper().getGroupAPI().allgroup().enqueue(object : retrofit2.Callback<Responsegroup>{
+            val userID = arguments!!.getInt("userID",0)
+            val userName = arguments!!.getString("userName")
             override fun onResponse(call: Call<Responsegroup>, response: Response<Responsegroup>) {
                 if(response.isSuccessful){
 
                     arrayList = response.body()!!.groupInfo
                     Log.d("LIST", response.body().toString())
                     root!!.recycler.adapter = GroupAdapterKt(context!!, arrayList)
+
+                    root!!.recycler.setOnItemClickListener { adapterView, view, i, l ->
+                        val intent = Intent(context!!,GroupContentsActivity::class.java)
+                        intent.putExtra("groupID",response.body()!!.groupInfo[i].GroupID)
+                        intent.putExtra("groupTitle",response.body()!!.groupInfo[i].Title)
+                        intent.putExtra("groupContent",response.body()!!.groupInfo[i].Content)
+                        intent.putExtra("groupLocation",response.body()!!.groupInfo[i].Location)
+                        intent.putExtra("groupAge1",response.body()!!.groupInfo[i].Age1)
+                        intent.putExtra("groupAge2",response.body()!!.groupInfo[i].Age2)
+                        intent.putExtra("groupGender",response.body()!!.groupInfo[i].Gender)
+                        intent.putExtra("userID",userID)
+                        intent.putExtra("userName",userName)
+                        Log.d("userName",userName.toString())
+                        startActivity(intent)
+                    }
                 }
             }
 

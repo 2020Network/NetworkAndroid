@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         val bundle = Bundle()
         bundle.putInt("userID", intent.getIntExtra("userID",0))
+        bundle.putString("userName", intent.getStringExtra("userName"))
         fragmentGroup.arguments = bundle
         fragmentmyPage.arguments = bundle
 

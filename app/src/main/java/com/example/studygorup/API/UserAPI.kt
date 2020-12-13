@@ -18,8 +18,13 @@ interface UserAPI {
         @Body login: Login
     ) : Call<Responselogin>
 
-    @GET("user/myuser")
+    @GET("/user/myuser")
     fun getUser(
         @Query("userID") userID : Int? = null
     ) : Call<ResponsemyUser>
+
+    @POST("user/myuser/update")
+    fun updateUser(
+        @Body updateUser : myUserUpdate
+    ) : Call<ResponseGroupID>
 }

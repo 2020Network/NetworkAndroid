@@ -1,8 +1,7 @@
 package com.example.studygorup.DTO
 
-data class  Responselogin (
+data class ResponseMygroup(
     val code : Int,
     val message : String,
-    val user : Int,
-    val userName : String
+    val groupInfo : ArrayList<MyGroup>
 )

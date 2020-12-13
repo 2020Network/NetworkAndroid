@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/group_row_shape"
     android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/group_row_shape" />
-
     <TextView
-        android:id="@+id/textTitle"
+        android:id="@+id/textTitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -31,7 +23,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
     <TextView
-        android:id="@+id/textContents"
+        android:id="@+id/textContents1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -41,10 +33,10 @@
         android:textColor="#000000"
         android:fontFamily="@font/appleneom"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/textTitle1" />
 
     <TextView
-        android:id="@+id/textTag"
+        android:id="@+id/textTag1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -55,32 +47,36 @@
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView4" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnModify"
-        android:layout_width="46dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/modify_btn_shape"
-        android:fontFamily="@font/appleneom"
-        android:text="수 정"
-        android:textColor="#45BD84"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete" />
+        <TextView
+            android:id="@+id/btnModify"
+            android:layout_width="46dp"
+            android:layout_height="23dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/modify_btn_shape"
+            android:fontFamily="@font/appleneom"
+            android:gravity="center"
+            android:text="수 정"
+            android:textColor="#45BD84"
+            android:textSize="10dp"/>
 
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="46dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/delete_btn_shape"
-        android:fontFamily="@font/appleneom"
-        android:text="삭 제"
-        android:textColor="#EF8181"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/btnDelete"
+            android:layout_width="46dp"
+            android:layout_height="23dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/delete_btn_shape"
+            android:fontFamily="@font/appleneom"
+            android:text="삭 제"
+            android:gravity="center"
+            android:textColor="#EF8181"
+            android:textSize="10dp" />
+    </LinearLayout>
+</LinearLayout>

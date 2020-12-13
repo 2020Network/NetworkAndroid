@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             Log.d("TEST", response.body()!!.user.toString())
                             intent.putExtra("userID", response.body()!!.user)
+                            intent.putExtra("userName",response.body()!!.userName)
                             startActivity(intent)
                             finish()
                         }

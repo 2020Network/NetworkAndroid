@@ -3,6 +3,8 @@ package com.example.studygorup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -12,6 +14,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.studygorup.API.GroupAPI;
+import com.example.studygorup.API.RetrofitHelper;
+import com.example.studygorup.DTO.GroupUpdate;
+import com.example.studygorup.DTO.JoinGroup;
+import com.example.studygorup.DTO.ResponseGroupID;
+import com.example.studygorup.DTO.ResponseMygroup;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,7 +33,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class GroupContentsActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, View.OnClickListener{
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class GroupContentsActivity extends AppCompatActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback{
 
     GoogleMap mMap;
     LatLng latLng;
@@ -39,7 +51,8 @@ public class GroupContentsActivity extends AppCompatActivity implements OnMapRea
 
     // region 변수 선언
     TextView textDue, textTitle, textInfo, textTag;
-    Button btnApplay;
+    TextView btnApplay;
+    TextView cancel;
     //endregion
 
     String strDue, strTitle, strInfo, strTag;
@@ -56,30 +69,68 @@ public class GroupContentsActivity extends AppCompatActivity implements OnMapRea
         textInfo = findViewById(R.id.textInfo);
         textTag = findViewById(R.id.textTag);
         btnApplay = findViewById(R.id.btnGroupApplay);
+        cancel = findViewById(R.id.cancel);
         //endregion
+        String age1 = getIntent().getStringExtra("groupAge1");
+        String age2 = getIntent().getStringExtra("groupAge2");
+        String gender = getIntent().getStringExtra("groupGender");
 
-        /*
-        textDue.setText(strDue);
-        textTitle.setText(strTitle);
-        textInfo.setText(strInfo);
-        textTag.setText(strTag);
-         */
+        textTitle.setText(getIntent().getStringExtra("groupTitle"));
+        textInfo.setText(getIntent().getStringExtra("groupContent"));
+        textTag.setText("나이 :" + age2 + "세 이상" + age1 + "세 미만 성별 : " + gender);
 
-        btnApplay.setOnClickListener(this);
+        /*btnApplay.setOnClickListener(this);
+        GroupAPI groupAPI = new RetrofitHelper().getGroupAPI();
+        groupAPI.yougroup(getIntent().getIntExtra("groupID",0)).enqueue(new Callback<ResponseMygroup>() {
+            @Override
+            public void onResponse(Call<ResponseMygroup> call, Response<ResponseMygroup> response) {
+                if (response.isSuccessful()){
 
-        strAddress = "광주광역시 광산구 목련로";
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseMygroup> call, Throwable t) {
+
+            }
+        });*/
+        strAddress = getIntent().getStringExtra("groupLocation");
+
+        btnApplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GroupAPI groupAPI = new RetrofitHelper().getGroupAPI();
+                Log.d("userID", String.valueOf(getIntent().getIntExtra("userID",0)));
+                Log.d("groupID",String.valueOf(getIntent().getIntExtra("groupID",0)));
+                Log.d("userName",getIntent().getStringExtra("userName"));
+                groupAPI.groupJoin(new JoinGroup(getIntent().getIntExtra("userID",0),getIntent().getIntExtra("groupID",0),getIntent().getStringExtra("userName"))).enqueue(new Callback<ResponseGroupID>() {
+                    @Override
+                    public void onResponse(Call<ResponseGroupID> call, Response<ResponseGroupID> response) {
+                        if (response.isSuccessful()){
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            intent.putExtra("userID",getIntent().getIntExtra("userID",0));
+                            intent.putExtra("userName",getIntent().getStringExtra("userName"));
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseGroupID> call, Throwable t) {
+                        Log.e("error",t.toString());
+                    }
+                });
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnGroupApplay:
-                Toast.makeText(this, "참가 신청 했습니다.", Toast.LENGTH_SHORT).show();
-                break;
-        }
     }
 
     @Override

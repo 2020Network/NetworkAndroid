@@ -1,4 +1,4 @@
-package com.example.studygorup.DTO
+ package com.example.studygorup.DTO
 
 data class ResponsemyUser(
     val code: Int,
