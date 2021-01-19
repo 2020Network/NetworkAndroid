@@ -29,6 +29,8 @@ class MypageFragmentKt : Fragment() {
         setList()
         myInfo()
 
+        val userID = arguments!!.getInt("userID", 0)
+
         root!!.myJoinGroup.setOnClickListener {
             val intent = Intent(context!!,MyJoinGroupActivity::class.java)
             intent.putExtra("userID",arguments!!.getInt("userID",0))

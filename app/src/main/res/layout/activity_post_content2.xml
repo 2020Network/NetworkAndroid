@@ -279,7 +279,7 @@
         android:background="@drawable/post_btn_shape"
         android:fontFamily="@font/appleneom"
         android:gravity="center"
-        android:text="등록"
+        android:text="수정"
         android:textColor="@color/colorWhite"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"

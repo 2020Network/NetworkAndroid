@@ -209,6 +209,7 @@ public class PostContentActivity extends AppCompatActivity implements OnMapReady
                     public void onResponse(Call<Responsesign> call, Response<Responsesign> response) {
                         if (response.isSuccessful()){
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            intent.putExtra("userID",getIntent().getIntExtra("userID",0));
                             startActivity(intent);//액티비티 띄우기
                         }
                     }

@@ -45,9 +45,9 @@ class MyJoinAdapterKt(context: Context, dataList : ArrayList<MyJoinGroup>) : Bas
                 call: Call<ResponseMygroup>,
                 response: Response<ResponseMygroup>
             ) {
-                if(response.body()!!.code == 200) {
-                    converterView.textTitle.text = response.body()!!.groupInfo[0].Title
-                    converterView.textContentsJoin.text = response.body()!!.groupInfo[0].Content
+                if(response.isSuccessful) {
+                    converterView.textTitle3.text = response.body()!!.groupInfo[p0].Title
+                    converterView.textContentsJoin3.text = response.body()!!.groupInfo[p0].Content
                 }
             }
 

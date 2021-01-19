@@ -109,6 +109,7 @@ public class GroupContentsActivity extends AppCompatActivity implements OnMapRea
                         if (response.isSuccessful()){
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             intent.putExtra("userID",getIntent().getIntExtra("userID",0));
+                            Toast.makeText(getApplicationContext(),"참가신청 완료",Toast.LENGTH_SHORT).show();
                             intent.putExtra("userName",getIntent().getStringExtra("userName"));
                             startActivity(intent);
                         }

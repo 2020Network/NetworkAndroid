@@ -8,39 +8,39 @@
     android:padding="5dp">
 
 
-    <ImageView
+    <LinearLayout
+
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notice_row_shape" />
+        android:background="@drawable/notice_row_shape">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
-        android:fontFamily="@font/appleneoeb"
-        android:text="공지 제목"
-        android:textColor="#000000"
-        android:textSize="14dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        <TextView
+            android:id="@+id/textTitle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/appleneoeb"
+            android:text="공지 제목"
+            android:textColor="#000000"
+            android:textSize="14dp" />
 
-    <TextView
-        android:id="@+id/textContentsJoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="6dp"
-        android:fontFamily="@font/appleneol"
-        android:text="공지 내용이다 공지 내용~"
-        android:textColor="#000000"
-        android:textSize="10dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        <TextView
+            android:id="@+id/textContentsJoin3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/appleneol"
+            android:text="공지 내용이다 공지 내용~"
+            android:textColor="#000000"
+            android:textSize="10dp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

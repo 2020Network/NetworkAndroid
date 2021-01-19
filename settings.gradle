@@ -1,2 +1,3 @@
+include ':mvvmproject'
 include ':app'
 rootProject.name = "Studygorup"
