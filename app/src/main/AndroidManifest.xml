@@ -16,7 +16,6 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".MyJoinGroupActivity"></activity>
         <activity android:name=".PostContentActivity2" />
-        <activity android:name=".MypageGroupFragmentKt" />
         <activity android:name=".GroupContentsActivity" />
         <activity android:name=".ProfileEditActivity" />
         <activity android:name=".NoticeFileActivity" />

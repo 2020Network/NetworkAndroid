@@ -14,6 +14,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         splashAnimation()
     }
+
     @UiThread
     private fun splashAnimation(){
         val textAnim : Animation = AnimationUtils.loadAnimation(this,R.anim.anim_splash_textview)

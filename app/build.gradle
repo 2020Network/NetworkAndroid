@@ -74,4 +74,5 @@ dependencies {
 
     //lottie Animation
     implementation "com.airbnb.android:lottie:3.5.0"
+
 }
