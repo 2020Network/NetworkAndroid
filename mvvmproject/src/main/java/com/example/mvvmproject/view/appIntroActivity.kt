@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import com.example.mvvmproject.R
+import com.example.mvvmproject.netwrok.DTO.Login
 import com.example.mvvmproject.widget.extension.startActivityWithFinish
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
@@ -49,13 +50,14 @@ class appIntroActivity : AppIntro() {
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        startActivityWithFinish(applicationContext, MainActivity::class.java)
+
+        startActivityWithFinish(applicationContext, LoginActivity::class.java)
         /*startActivity(Intent(applicationContext, MainActivity::class.java))*/
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
 
-        startActivityWithFinish(applicationContext, MainActivity::class.java)
+        startActivityWithFinish(applicationContext, LoginActivity::class.java)
     }
 }
