@@ -8,14 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.studygorup.API.RetrofitHelper
-import com.example.studygorup.DTO.Group
+import com.example.mvvmproject.netwrok.DTO.Group
 import com.example.studygorup.DTO.Responsegroup
 import kotlinx.android.synthetic.main.fragment_group_kt.view.*
 import retrofit2.Call
 import retrofit2.Response
 
 class GroupFragmentKt : Fragment() {
-    var arrayList = ArrayList<Group>()
+    var arrayList = ArrayList<com.example.mvvmproject.netwrok.DTO.Group>()
     private var root : View? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.example.studygorup.DTO.Group
-import com.example.studygorup.DTO.Responsegroup
+import com.example.mvvmproject.netwrok.DTO.Group
 import kotlinx.android.synthetic.main.group_row.view.*
 
-class GroupAdapterKt(context: Context, dataList: ArrayList<Group>) : BaseAdapter(){
+class GroupAdapterKt(context: Context, dataList: ArrayList<com.example.mvvmproject.netwrok.DTO.Group>) : BaseAdapter(){
     val mContext = context
     val mDataList = dataList
     override fun getCount(): Int {

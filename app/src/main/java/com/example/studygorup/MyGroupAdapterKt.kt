@@ -2,21 +2,11 @@ package com.example.studygorup
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.example.studygorup.API.RetrofitHelper
-import com.example.studygorup.DTO.Group
 import com.example.studygorup.DTO.MyGroup
-import com.example.studygorup.DTO.MyJoinGroup
-import kotlinx.android.synthetic.main.activity_group_contents.view.*
-import kotlinx.android.synthetic.main.group_row.view.*
-import kotlinx.android.synthetic.main.group_row.view.textContents
-import kotlinx.android.synthetic.main.group_row.view.textTag
-import kotlinx.android.synthetic.main.group_row.view.textTitle
-import kotlinx.android.synthetic.main.mypage_chat_row.view.*
 import kotlinx.android.synthetic.main.mypage_group_row.view.*
 
 class MyGroupAdapterKt(context: Context, dataList: ArrayList<MyGroup>) : BaseAdapter(){

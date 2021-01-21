@@ -8,12 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.studygorup.API.RetrofitHelper
-import com.example.studygorup.DTO.Group
 import com.example.studygorup.DTO.MyJoinGroup
 import com.example.studygorup.DTO.ResponseMygroup
-import kotlinx.android.synthetic.main.group_row.view.*
-import kotlinx.android.synthetic.main.group_row.view.textContents
-import kotlinx.android.synthetic.main.group_row.view.textTitle
 import kotlinx.android.synthetic.main.notice_row.view.*
 import retrofit2.Call
 import retrofit2.Callback

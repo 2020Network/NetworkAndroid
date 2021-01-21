@@ -37,7 +37,7 @@ interface GroupAPI {
 
     @POST("/group/mygroup/delete")
     fun groupDelete(
-        @Body delete : DeleteGroup
+        @Body delete : com.example.mvvmproject.netwrok.DTO.DeleteGroup
     ) : Call<ResponseGroupID>
 
     @GET("/group/join/group")
