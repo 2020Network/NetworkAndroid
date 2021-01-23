@@ -24,19 +24,35 @@ class LoginViewModel (private val service : UserAPI) : BaseViewModel() {
         Log.d("TEST", "T")
         if (email.value != null && password.value != null) {
             if (email.value!!.isNotEmpty() && password.value!!.isNotEmpty()) {
-                service.login(Login( email.value.toString(),password.value.toString())).enqueue(object : retrofit2.Callback<Responselogin>{
+                service.login(Login( userEmail = email.value.toString() ,userPwd = password.value.toString())).enqueue(object : retrofit2.Callback<Responselogin>{
                     override fun onResponse(
                         call: Call<Responselogin>,
                         response: Response<Responselogin>
                     ) {
-
+                        if (response.isSuccessful){
+                            onSuccessEvent.call()
+                        }
+                        else{
+                            Log.d("LoginError",response.message())
+                            onFailEvent.call()
+                        }
                     }
 
                     override fun onFailure(call: Call<Responselogin>, t: Throwable) {
+                        Log.d("LoginError",t.toString() )
+                        onFailEvent.call()
                     }
 
                 })
             }
+            else {
+                onErrorEvent.call()
+            }
+        } else {
+            onErrorEvent.call()
         }
+    }
+    fun SignUp() {
+        onSignUpEvent.call()
     }
 }
