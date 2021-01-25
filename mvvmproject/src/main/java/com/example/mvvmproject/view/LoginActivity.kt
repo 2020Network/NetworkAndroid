@@ -20,6 +20,7 @@ class LoginActivity :BaseActivity<LoginViewModel, ActivityLoginBinding>() {
         get() = getViewModel(LoginViewModel::class)
 
     override fun init() {
+
     }
 
     override fun observerViewModel() {
@@ -30,11 +31,10 @@ class LoginActivity :BaseActivity<LoginViewModel, ActivityLoginBinding>() {
                 finish()
             })
             onFailEvent.observe(this@LoginActivity, {
-
-                shortToastMessage("로그인을 실패하였습니다.")
+                shortToastMessage("이메일 혹은 비밀번호가 맞지않습니다.")
             })
             onErrorEvent.observe(this@LoginActivity, {
-                shortToastMessage("로그인 에러")
+                shortToastMessage("로그인 에러 및 서버 오류")
             })
 
             onSignUpEvent.observe(this@LoginActivity, {
