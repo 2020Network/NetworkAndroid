@@ -2,6 +2,7 @@ package com.example.mvvmproject.di
 
 import com.example.mvvmproject.netwrok.api.UserAPI
 import com.example.mvvmproject.viewmodel.LoginViewModel
+import com.example.mvvmproject.viewmodel.SignUpViewModel
 import com.example.mvvmproject.viewmodel.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -21,4 +22,5 @@ val appModule = module {
 
     viewModel { SplashViewModel() }
     viewModel { LoginViewModel(get<UserAPI>()) }
+    viewModel { SignUpViewModel(get<UserAPI>()) }
 }
